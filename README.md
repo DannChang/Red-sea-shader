@@ -1,16 +1,3 @@
-# Three.js Journey
+![Screen Shot 2021-03-11 at 10 43 46 AM](https://user-images.githubusercontent.com/27746994/110837909-af03eb00-8256-11eb-825b-d8d894f09cea.png)
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
-
-``` bash
-# Install dependencies (only the first time)
-npm install
-
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
-```
+Raging sea configurator: https://gallant-swartz-b696d6.netlify.app/
