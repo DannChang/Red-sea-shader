@@ -11,7 +11,11 @@ import waterFragmentShader from './shaders/water/fragment.glsl'
  */
 // Debug
 const gui = new dat.GUI({ width: 340 })
+gui.close()
 const debugObject = {};
+
+// Texture loader
+const cubeTextureLoader = new THREE.CubeTextureLoader()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -23,13 +27,15 @@ const scene = new THREE.Scene()
  * Water
  */
 // Geometry
-const waterGeometry = new THREE.PlaneGeometry(2, 2, 128, 128)
+const waterGeometry = new THREE.PlaneGeometry(100, 100, 128, 128)
 
 // Color
 // debugObject.depthColor = '#186691'
 // debugObject.surfaceColor = '#9bd8ff'
-debugObject.depthColor = '#981616'
-debugObject.surfaceColor = '#393232'
+// debugObject.depthColor = '#981616'
+// debugObject.surfaceColor = '#393232'
+debugObject.depthColor = '#337296'
+debugObject.surfaceColor = '#b99393'
 
 // Material
 const waterMaterial = new THREE.ShaderMaterial({
@@ -41,14 +47,14 @@ const waterMaterial = new THREE.ShaderMaterial({
 
         uBigWavesElevation: { value: 0.2 },
         uColorOffset: { value: 0.08 },
-        uColorMultiplier: { value: 5 },
+        uColorMultiplier: { value: 1.336 },
 
-        uBigWavesFrequency: { value: new THREE.Vector2(4, 1.5) },
+        uBigWavesFrequency: { value: new THREE.Vector2(10, 10) },
         uBigWavesSpeed: { value: 0.5 },
 
-        uSmallWavesElevation: { value: 0.15 },
-        uSmallWavesFrequency: { value: 3 },
-        uSmallWavesSpeed: { value: 0.2 },
+        uSmallWavesElevation: { value: 0.984 },
+        uSmallWavesFrequency: { value: 30 },
+        uSmallWavesSpeed: { value: 0.45 },
         uSmallIterations: { value: 4 },
 
         uDepthColor: { value: new THREE.Color(debugObject.depthColor)},
@@ -88,6 +94,23 @@ water.rotation.x = - Math.PI * 0.5
 scene.add(water)
 
 /**
+ * Environment Map
+ */
+ const environmentMap = cubeTextureLoader.load([
+    '/environments/lake/px.png',
+    '/environments/lake/nx.png',
+    '/environments/lake/py.png',
+    '/environments/lake/ny.png',
+    '/environments/lake/pz.png',
+    '/environments/lake/nz.png',
+])
+
+environmentMap.encoding = THREE.sRGBEncoding
+
+scene.background = environmentMap
+scene.environment = environmentMap
+
+/**
  * Sizes
  */
 const sizes = {
@@ -115,7 +138,7 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(1, 1, 1)
+camera.position.set(1.2, 0.45, 12.02)
 scene.add(camera)
 
 // Controls
